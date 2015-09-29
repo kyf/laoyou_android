@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">老友圈</string>
+    <string name="title_activity_visit_code">邀请码进入</string>
+    <string name="visitcode_hint">请输入您收到的邀请码</string>
+    <string name="visitcode_enter">进 入</string>
+    <string name="visitcode_create_tip">还没有您的圈子？</string>
+    <string name="visitcode_create">创建</string>
+    <string name="title_activity_create">创建圈子</string>
+    <string name="hint_activity_create">输入圈子名称</string>
+    <string name="next_step">下一步</string>
+    <string name="title_activity_touch_pwd">设置手势密码</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>
