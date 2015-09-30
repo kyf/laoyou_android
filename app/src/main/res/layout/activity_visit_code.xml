@@ -20,6 +20,7 @@
         android:height="@dimen/input_height"
         android:gravity="center"
         android:background="@drawable/el"
+        android:id="@+id/visit_code_text"
         android:hint="@string/visitcode_hint" />
 
     <Button

@@ -9,7 +9,18 @@
     <string name="hint_activity_create">输入圈子名称</string>
     <string name="next_step">下一步</string>
     <string name="title_activity_touch_pwd">设置手势密码</string>
+    <string name="tip_activity_visit_code">验证邀请码...</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_home">栗木小学1997届同学群</string>
+    <string name="tab_home_playground">广场</string>
+    <string name="tab_home_contact">通讯录</string>
+    <string name="tab_home_activity">活动</string>
+    <string name="tab_home_me">我</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
 </resources>

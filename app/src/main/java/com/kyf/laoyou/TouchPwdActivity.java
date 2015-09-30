@@ -1,13 +1,17 @@
 package com.kyf.laoyou;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.eftimoff.patternview.PatternView;
 import com.kyf.laoyou.view.MyLoading;
 
 public class TouchPwdActivity extends AppCompatActivity {
+
+    private static final String LogTag = "TouchPwdActivity****";
 
     private PatternView patternView;
 
@@ -17,8 +21,9 @@ public class TouchPwdActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_touch_pwd);
-        setTitle(R.string.title_activity_touch_pwd);
 
+        ActionBar actionBar = this.getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         initView();
         /*
@@ -28,6 +33,20 @@ public class TouchPwdActivity extends AppCompatActivity {
         dialog.show();
         */
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home: {
+                finish();
+                return true;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void initView() {
         patternView = (PatternView) findViewById(R.id.patternView);

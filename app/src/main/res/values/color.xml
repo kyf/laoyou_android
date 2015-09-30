@@ -7,9 +7,13 @@
     <color name="grey">#58616d</color>
     <color name="darkgrey">#ff404040</color>
     <color name="toasterro">#9fd524</color>
-    <color name="lightgrey">#ff888888</color>
+    <color name="lightgrey">#cfffffff</color>
     <color name="semitransparent">#80000000</color>
     <color name="lightransparent">#a0000000</color>
     <color name="transparent">#00000000</color>
     <color name="navpage">#FFE1E8EB</color>
+    <color name="gray">#CCC</color>
+    <color name="bottom_menu_text_color_on">#6AC648</color>
+    <color name="bottom_menu_text_color_off">#A5A5A5</color>
+
 </resources>
