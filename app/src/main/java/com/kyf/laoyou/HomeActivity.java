@@ -6,28 +6,26 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bigkoo.alertview.AlertView;
+import com.bigkoo.alertview.OnItemClickListener;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -92,10 +90,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tab_activity.setOnClickListener(this);
         tab_me.setOnClickListener(this);
 
+        /*
         tab_playground_text.setOnClickListener(this);
         tab_contact_text.setOnClickListener(this);
         tab_activity_text.setOnClickListener(this);
         tab_me_text.setOnClickListener(this);
+        */
 
         initTabControls();
     }
@@ -172,7 +172,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -210,7 +209,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+
+            PlaceholderFragment placeholderFragment =  PlaceholderFragment.newInstance(position + 1);
+            return placeholderFragment;
         }
 
         @Override
@@ -236,12 +237,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment implements OnItemClickListener {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+
+        private PlaceholderFragment mContext;
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -256,6 +259,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         public PlaceholderFragment() {
+            mContext = this;
         }
 
         @Override
@@ -272,28 +276,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             View rootView = inflater.inflate(layout, container, false);
-
             bindViewEvent(rootView, args.getInt(ARG_SECTION_NUMBER));
             return rootView;
         }
 
+        @Override
+        public void onItemClick(Object obj, int position){
+            Toast.makeText(MyApplication.getContext(), "button " + position, Toast.LENGTH_SHORT).show();
+        }
+
         private void bindViewEvent(View rootView, int position){
             switch(position){
-                case 2:
                 case 1:{
                     TextView section_label = (TextView) rootView.findViewById(R.id.section_label);
                     if(section_label != null) {
-                        Log.e(LogTag, "bindViewEvent" + position);
                         section_label.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(MyApplication.getContext(), "section_label 121212121", Toast.LENGTH_SHORT);
+                                String title = "提示";
+
+                                String content = "demo测试";
+                                new AlertView(title, content, null, null, new String[]{"确定"}, mContext.getActivity(), AlertView.Style.Alert, PlaceholderFragment.this).show();
+                                Toast.makeText(mContext.getActivity(), "section_label 121212121", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
                     break;
                 }
-                case 21:{
+                case 2:{
 
                     break;
                 }
@@ -307,6 +317,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+
     }
 
 }
