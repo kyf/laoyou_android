@@ -19,6 +19,9 @@
     <string name="tab_home_activity">活动</string>
     <string name="tab_home_me">我</string>
 
+    <string name="message_welcome">欢迎找到组织，从此以后你也算是有组织、有纪律、有身份的三友青年了!</string>
+    <string name="message_boss_complete_info">群主是不是应该给自己起个名字，什么“司令”、“老大”，“扛把子”的也来一个，也在圈子里能晗的出口啊!</string>
+
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>

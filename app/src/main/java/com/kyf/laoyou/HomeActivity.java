@@ -21,13 +21,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
+import com.kyf.laoyou.adapter.ChatlistAdapter;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener, OnItemClickListener {
 
     private static final String LogTag = "HomeActivity";
 
@@ -90,14 +92,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tab_activity.setOnClickListener(this);
         tab_me.setOnClickListener(this);
 
-        /*
-        tab_playground_text.setOnClickListener(this);
-        tab_contact_text.setOnClickListener(this);
-        tab_activity_text.setOnClickListener(this);
-        tab_me_text.setOnClickListener(this);
-        */
-
         initTabControls();
+
+        //需要完善基础信息才能使用相关功能
+        String title = "提示";
+        String content = "请先完善相关信息才能使用全部功能";
+        new AlertView(title, content, null, new String[]{"填写信息"}, new String[]{"先看看"}, mContext, AlertView.Style.Alert, this).show();
+    }
+
+    @Override
+    public void onItemClick(Object obj, int position){
+        if(position == 0) {
+            Toast.makeText(MyApplication.getContext(), "button " + position, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -237,7 +244,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment implements OnItemClickListener {
+    public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -280,27 +287,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             return rootView;
         }
 
-        @Override
-        public void onItemClick(Object obj, int position){
-            Toast.makeText(MyApplication.getContext(), "button " + position, Toast.LENGTH_SHORT).show();
-        }
-
         private void bindViewEvent(View rootView, int position){
             switch(position){
                 case 1:{
-                    TextView section_label = (TextView) rootView.findViewById(R.id.section_label);
-                    if(section_label != null) {
-                        section_label.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                String title = "提示";
+                    ListView chatlist = (ListView) rootView.findViewById(R.id.chatlist);
+                    List<Map<String, String>> ds = new ArrayList<Map<String, String>>();
 
-                                String content = "demo测试";
-                                new AlertView(title, content, null, null, new String[]{"确定"}, mContext.getActivity(), AlertView.Style.Alert, PlaceholderFragment.this).show();
-                                Toast.makeText(mContext.getActivity(), "section_label 121212121", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
+
+                    Map<String, String> msg1 = new HashMap<String, String>();
+                    msg1.put("message", mContext.getActivity().getResources().getString(R.string.message_welcome));
+                    ds.add(msg1);
+
+                    Map<String, String> msg2 = new HashMap<String, String>();
+                    msg2.put("message", mContext.getActivity().getResources().getString(R.string.message_boss_complete_info));
+                    ds.add(msg2);
+
+                    ChatlistAdapter chatlistAdapter = new ChatlistAdapter(mContext.getActivity(), ds);
+                    chatlist.setAdapter(chatlistAdapter);
+                    chatlist.setDividerHeight(0);
                     break;
                 }
                 case 2:{
