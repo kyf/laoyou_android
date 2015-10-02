@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.eftimoff.patternview.PatternView;
 import com.kyf.laoyou.view.MyLoading;
 
-public class TouchPwdActivity extends AppCompatActivity {
+public class TouchPwdActivity extends BaseActivity {
 
     private static final String LogTag = "TouchPwdActivity****";
 
@@ -19,8 +19,8 @@ public class TouchPwdActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mLayout = R.layout.activity_touch_pwd;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_touch_pwd);
 
         ActionBar actionBar = this.getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

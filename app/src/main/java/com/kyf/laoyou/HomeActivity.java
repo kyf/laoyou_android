@@ -29,7 +29,7 @@ import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.kyf.laoyou.adapter.ChatlistAdapter;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener, OnItemClickListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener, OnItemClickListener {
 
     private static final String LogTag = "HomeActivity";
 
@@ -49,8 +49,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mLayout = R.layout.activity_home;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
         mContext = this;
         String visitCode = getIntent().getStringExtra("visitCode");
 
@@ -97,7 +97,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         //需要完善基础信息才能使用相关功能
         String title = "提示";
         String content = "请先完善相关信息才能使用全部功能";
-        new AlertView(title, content, null, new String[]{"填写信息"}, new String[]{"先看看"}, mContext, AlertView.Style.Alert, this).show();
+        alertView = new AlertView(title, content, null, new String[]{"填写信息"}, new String[]{"先看看"}, mContext, AlertView.Style.Alert, this);
+        alertView.show();
     }
 
     @Override
@@ -301,6 +302,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     Map<String, String> msg2 = new HashMap<String, String>();
                     msg2.put("message", mContext.getActivity().getResources().getString(R.string.message_boss_complete_info));
                     ds.add(msg2);
+
+                    Map<String, String> msg3 = new HashMap<String, String>();
+                    msg3.put("message", mContext.getActivity().getResources().getString(R.string.message_welcome));
+                    ds.add(msg3);
+
+                    Map<String, String> msg4 = new HashMap<String, String>();
+                    msg4.put("message", mContext.getActivity().getResources().getString(R.string.message_boss_complete_info));
+                    ds.add(msg4);
 
                     ChatlistAdapter chatlistAdapter = new ChatlistAdapter(mContext.getActivity(), ds);
                     chatlist.setAdapter(chatlistAdapter);

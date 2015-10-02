@@ -14,7 +14,7 @@ import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.kyf.laoyou.view.MyLoading;
 
-public class VisitCodeActivity extends AppCompatActivity implements View.OnClickListener, OnItemClickListener {
+public class VisitCodeActivity extends BaseActivity implements View.OnClickListener, OnItemClickListener {
 
     private Context mContext;
 
@@ -26,8 +26,8 @@ public class VisitCodeActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mLayout = R.layout.activity_visit_code;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visit_code);
 
         initView();
     }
@@ -50,7 +50,8 @@ public class VisitCodeActivity extends AppCompatActivity implements View.OnClick
                 if(visitCode.equals("")){
                     String title = "提示";
                     String content = mContext.getResources().getString(R.string.visitcode_hint);
-                    new AlertView(title, content, null, null, new String[]{"确定"}, this, AlertView.Style.Alert, VisitCodeActivity.this).show();
+                    alertView = new AlertView(title, content, null, null, new String[]{"确定"}, this, AlertView.Style.Alert, VisitCodeActivity.this);
+                    alertView.show();
                     return;
                 }
                 myLoading = new MyLoading(this);

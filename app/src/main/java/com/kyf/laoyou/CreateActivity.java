@@ -8,14 +8,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class CreateActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreateActivity extends BaseActivity implements View.OnClickListener {
 
     private Button create_next_step;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mLayout = R.layout.activity_create;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
