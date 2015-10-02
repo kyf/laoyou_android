@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_height="@dimen/chat_photo_height"
+        android:text="@string/title_activity_swipe_code"
+        android:background="@color/darkgrey"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="@dimen/menu_text_size"
+        android:id="@+id/menu_swipe_bt"
+        />
+</LinearLayout>

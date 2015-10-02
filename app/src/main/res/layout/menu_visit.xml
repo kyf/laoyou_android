@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
+    android:layout_height="wrap_content" android:paddingLeft="@dimen/guide_activity_horizontal_margin"
+    android:paddingRight="@dimen/guide_activity_horizontal_margin"
+    android:paddingTop="@dimen/guide_activity_vertical_margin"
+    android:paddingBottom="@dimen/guide_activity_vertical_margin" tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/button_text_size"
+        android:text="@string/title_activity_visit_code"
+        />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_menu_moreoverflow_normal_holo_dark"
+        android:scaleType="fitCenter"
+        android:layout_alignParentRight="true"
+        android:id="@+id/visit_code_more_bt"
+        />
+
+</RelativeLayout>

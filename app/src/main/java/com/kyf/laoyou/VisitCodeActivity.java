@@ -2,12 +2,24 @@ package com.kyf.laoyou;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+//import android.widget.PopupMenu;
+import android.support.v7.widget.PopupMenu;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
@@ -24,6 +36,10 @@ public class VisitCodeActivity extends BaseActivity implements View.OnClickListe
 
     private EditText visit_code_text;
 
+    private ImageView visit_code_more_bt;
+
+    private PopupWindow pw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mLayout = R.layout.activity_visit_code;
@@ -39,12 +55,41 @@ public class VisitCodeActivity extends BaseActivity implements View.OnClickListe
         visit_code_text = (EditText) findViewById(R.id.visit_code_text);
         ok.setOnClickListener(this);
         createbt.setOnClickListener(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(R.layout.menu_visit);
+        actionBar.setDisplayShowCustomEnabled(true);
+        visit_code_more_bt = (ImageView) actionBar.getCustomView().findViewById(R.id.visit_code_more_bt);
+        visit_code_more_bt.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view){
         int id = view.getId();
         switch(id){
+            case R.id.menu_swipe_bt:{
+                Intent intent = new Intent(this, SwipeCodeActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.visit_code_more_bt:{
+                if(pw == null){
+                    LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View menuList = inflater.inflate(R.layout.menu_visit_list, null);
+                    TextView menu_swipe_bt = (TextView) menuList.findViewById(R.id.menu_swipe_bt);
+                    menu_swipe_bt.setOnClickListener(this);
+                    pw = new PopupWindow(menuList, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+                    pw.setBackgroundDrawable(new BitmapDrawable());
+                    pw.showAsDropDown(view);
+                }else{
+                    if(pw.isShowing()){
+                        pw.dismiss();
+                    }else {
+                        pw.showAsDropDown(view);
+                    }
+                }
+                break;
+            }
             case R.id.ok:
                 final String visitCode = visit_code_text.getText().toString().trim();
                 if(visitCode.equals("")){
@@ -59,6 +104,7 @@ public class VisitCodeActivity extends BaseActivity implements View.OnClickListe
                 myLoading.setContent(getResources().getString(R.string.tip_activity_visit_code));
                 myLoading.show();
 
+
                 new Handler().postDelayed(new Runnable(){
                     @Override
                     public void run() {
@@ -70,6 +116,7 @@ public class VisitCodeActivity extends BaseActivity implements View.OnClickListe
                         ((AppCompatActivity)mContext).finish();
                     }
                 }, 1000);
+
                 break;
             case R.id.createbt:
                 Intent intent = new Intent(mContext, CreateActivity.class);

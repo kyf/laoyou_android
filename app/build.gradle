@@ -25,4 +25,5 @@ dependencies {
     compile 'com.bigkoo:alertview:1.0.0'
     compile 'com.eftimoff:android-patternview:1.0.3@aar'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:1.0.0'
 }

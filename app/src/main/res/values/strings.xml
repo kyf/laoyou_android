@@ -28,6 +28,13 @@
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
-    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_base"></string>
+
+    <string name="title_activity_visit">邀请好友</string>
+    <string name="visit_way_one">方式一</string>
+    <string name="visit_way_one_tip">扫描二维码</string>
+    <string name="visit_way_two">方式二</string>
+    <string name="visit_way_two_tip">微信分享</string>
+    <string name="title_activity_swipe_code">本群二维码</string>
 
 </resources>

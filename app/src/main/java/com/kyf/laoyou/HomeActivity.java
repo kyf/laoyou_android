@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -245,7 +247,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment implements View.OnClickListener {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -288,6 +290,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             return rootView;
         }
 
+        @Override
+        public void onClick(View view){
+            int id = view.getId();
+            switch(id){
+                case R.id.VisitBt:{
+                    Intent intent = new Intent(mContext.getActivity(), VisitActivity.class);
+                    mContext.getActivity().startActivity(intent);
+                    break;
+                }
+            }
+        }
+
         private void bindViewEvent(View rootView, int position){
             switch(position){
                 case 1:{
@@ -317,7 +331,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     break;
                 }
                 case 2:{
-
+                    Button VisitBt = (Button) rootView.findViewById(R.id.VisitBt);
+                    VisitBt.setOnClickListener(this);
                     break;
                 }
                 case 3:{

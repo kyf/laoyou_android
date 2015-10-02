@@ -105,6 +105,7 @@
             android:background="@drawable/bt_el"
             android:text="@string/visit_button_text"
             android:textColor="@color/white"
+            android:id="@+id/VisitBt"
             />
     </LinearLayout>
 </RelativeLayout>
