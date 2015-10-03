@@ -36,5 +36,7 @@
     <string name="visit_way_two">方式二</string>
     <string name="visit_way_two_tip">微信分享</string>
     <string name="title_activity_swipe_code">本群二维码</string>
+    <string name="read_qrcode_failure">二维码读取失败</string>
+    <string name="create_qrcode">生成二维码...</string>
 
 </resources>

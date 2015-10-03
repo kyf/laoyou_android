@@ -1,53 +1,65 @@
 package com.kyf.laoyou;
 
+import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.view.SurfaceView;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
+import com.github.yoojia.zxing.FinderView;
+import com.github.yoojia.zxing.QRCodeScanSupport;
 
-public class SwipeCodeActivity extends BaseActivity implements QRCodeReaderView.OnQRCodeReadListener {
+public class SwipeCodeActivity extends BaseActivity implements QRCodeScanSupport.OnScanResultListener {
 
-    private QRCodeReaderView mydecoderview;
+    private QRCodeScanSupport mQRCodeScanSupport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        mLayout = R.layout.activity_swipe_code;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_swipe_code);
 
+        /*
         mydecoderview = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
         mydecoderview.setOnQRCodeReadListener(this);
+        */
+
+
+        // 查找布局文件中的元素
+        ImageView capturePreview = (ImageView) findViewById(R.id.decode_preview);
+        final FinderView finderView = (FinderView) findViewById(R.id.capture_viewfinder_view);
+        SurfaceView surfaceView = (SurfaceView) findViewById(R.id.capture_preview_view);
+
+        // 创建扫描支持类
+        mQRCodeScanSupport = new QRCodeScanSupport(surfaceView, finderView);
+        //mQRCodeScanSupport.setCapturePreview(capturePreview);
+
+        // 如何处理扫描结果
+        mQRCodeScanSupport.setOnScanResultListener(this);
     }
 
     @Override
-    public void onQRCodeRead(String text, PointF[] points) {
-        mydecoderview.getCameraManager().closeDriver();
-        Toast.makeText(SwipeCodeActivity.this, text, Toast.LENGTH_SHORT).show();
-    }
-
-
-    // Called when your device have no camera
-    @Override
-    public void cameraNotFound() {
-        Toast.makeText(SwipeCodeActivity.this, "camera  not found", Toast.LENGTH_SHORT).show();
-    }
-
-    // Called when there's no QR codes in the camera preview image
-    @Override
-    public void QRCodeNotFoundOnCamImage() {
-
+    public void onScanResult(String notNullResult) {
+        Intent intent = new Intent();
+        intent.putExtra("qrcode", notNullResult);
+        setResult(1001, intent);
+        this.finish();
     }
 
     @Override
     protected void onResume() {
+        mQRCodeScanSupport.onResume(this);
         super.onResume();
-        mydecoderview.getCameraManager().startPreview();
     }
 
     @Override
     protected void onPause() {
+        mQRCodeScanSupport.onPause(this);
         super.onPause();
-        mydecoderview.getCameraManager().stopPreview();
     }
 
 }

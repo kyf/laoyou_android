@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kyf.laoyou" >
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -45,9 +47,12 @@
         </activity>
         <activity
             android:name=".SwipeCodeActivity"
+            android:label="@string/visit_way_one_tip" >
+        </activity>
+        <activity
+            android:name=".QRCodeActivity"
             android:label="@string/title_activity_swipe_code" >
         </activity>
     </application>
 
-    <uses-permission android:name="android.permission.CAMERA" />
 </manifest>

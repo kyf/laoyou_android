@@ -27,7 +27,7 @@ public class VisitActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view){
         switch(view.getId()){
             case R.id.SwipeCodeBt:{
-                Intent intent = new Intent(this, SwipeCodeActivity.class);
+                Intent intent = new Intent(this, QRCodeActivity.class);
                 startActivity(intent);
                 break;
             }

@@ -64,12 +64,31 @@ public class VisitCodeActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        switch(resultCode){
+            case 1001:{
+                String qrcode = data.getStringExtra("qrcode");
+                if(qrcode != null) {
+                    visit_code_text.setText(qrcode);
+                    Toast.makeText(this, qrcode, Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this, getResources().getString(R.string.read_qrcode_failure), Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+        }
+    }
+
+
+
+    @Override
     public void onClick(View view){
         int id = view.getId();
         switch(id){
             case R.id.menu_swipe_bt:{
                 Intent intent = new Intent(this, SwipeCodeActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1001);
+                pw.dismiss();
                 break;
             }
             case R.id.visit_code_more_bt:{
