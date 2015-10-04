@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,6 +40,9 @@ public class QRCodeActivity extends BaseActivity implements Runnable {
     protected void onCreate(Bundle savedInstanceState) {
         mLayout = R.layout.activity_qrcode;
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         qrcode_image = (ImageView) findViewById(R.id.qrcode_image);
 

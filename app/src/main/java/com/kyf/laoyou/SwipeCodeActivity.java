@@ -3,6 +3,7 @@ package com.kyf.laoyou;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,10 +25,8 @@ public class SwipeCodeActivity extends BaseActivity implements QRCodeScanSupport
         mLayout = R.layout.activity_swipe_code;
         super.onCreate(savedInstanceState);
 
-        /*
-        mydecoderview = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
-        mydecoderview.setOnQRCodeReadListener(this);
-        */
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
         // 查找布局文件中的元素

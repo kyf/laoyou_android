@@ -2,6 +2,7 @@ package com.kyf.laoyou;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,6 +15,8 @@ public class VisitActivity extends BaseActivity implements View.OnClickListener 
         mLayout = R.layout.activity_visit;
         super.onCreate(savedInstanceState);
 
+        ActionBar actionBar = this.getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         initView();
     }
 

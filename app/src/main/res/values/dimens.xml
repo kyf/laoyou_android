@@ -19,7 +19,7 @@
 
     <dimen name="chat_fragment_margin_horizontal">10dp</dimen>
 
-    <dimen name="chat_item_margin_top">15dp</dimen>
+    <dimen name="chat_item_margin_top">5dp</dimen>
 
     <dimen name="menu_text_size">17sp</dimen>
 
@@ -28,4 +28,9 @@
     <dimen name="qrwindow_width">250dp</dimen>
     <dimen name="qrwindow_height">300dp</dimen>
 
+    <dimen name="contact_item_margin_top">8dp</dimen>
+    <dimen name="contact_item_margin_bottom">8dp</dimen>
+    <dimen name="contact_item_margin_left">15dp</dimen>
+    <dimen name="contact_item_name_size">18sp</dimen>
+    <dimen name="contact_item_phone_size">14sp</dimen>
 </resources>

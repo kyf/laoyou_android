@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.zip.Inflater;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,12 +27,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.kyf.laoyou.adapter.ChatlistAdapter;
+import com.kyf.laoyou.adapter.ContactListAdapter;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener, OnItemClickListener {
 
@@ -38,6 +43,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private Context mContext;
 
     SectionsPagerAdapter mSectionsPagerAdapter;
+
+    private PopupWindow pw;
 
     ViewPager mViewPager;
 
@@ -71,6 +78,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         initView();
+
+        initActionBar();
+    }
+
+    private void initActionBar(){
+        ActionBar actionBar = this.getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(R.layout.menu_home);
+        View actionView = actionBar.getCustomView();
+        ImageView morebt = (ImageView) findViewById(R.id.home_code_more_bt);
+        morebt.setOnClickListener(this);
     }
 
     private void initView(){
@@ -114,6 +132,29 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     public void onClick(View view){
         int id = view.getId();
         switch(id){
+            case R.id.menu_visit_bt:{
+                Intent intent = new Intent(this, VisitActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.home_code_more_bt:{
+                if(pw == null){
+                    LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View menu_home = inflater.inflate(R.layout.menu_home_list, null);
+                    pw = new PopupWindow(menu_home, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+                    pw.setBackgroundDrawable(new BitmapDrawable());
+                    pw.showAsDropDown(view);
+                    TextView menu_visit_bt = (TextView) menu_home.findViewById(R.id.menu_visit_bt);
+                    menu_visit_bt.setOnClickListener(this);
+                }else{
+                    if(pw.isShowing()){
+                        pw.dismiss();
+                    }else{
+                        pw.showAsDropDown(view);
+                    }
+                }
+                break;
+            }
             case R.id.tab_playground:
                 mViewPager.setCurrentItem(0, true);
                 changeTab(0);
@@ -307,7 +348,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 case 1:{
                     ListView chatlist = (ListView) rootView.findViewById(R.id.chatlist);
                     List<Map<String, String>> ds = new ArrayList<Map<String, String>>();
-
+                    chatlist.setVerticalScrollBarEnabled(false);
 
                     Map<String, String> msg1 = new HashMap<String, String>();
                     msg1.put("message", mContext.getActivity().getResources().getString(R.string.message_welcome));
@@ -331,8 +372,39 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     break;
                 }
                 case 2:{
+                    LinearLayout ContactList = (LinearLayout) rootView.findViewById(R.id.ContactList);
+                    LinearLayout ContactNo = (LinearLayout) rootView.findViewById(R.id.ContactNo);
+                    ListView ContactListView = (ListView) rootView.findViewById(R.id.ContactListView);
                     Button VisitBt = (Button) rootView.findViewById(R.id.VisitBt);
-                    VisitBt.setOnClickListener(this);
+
+                    ContactListView.setVerticalScrollBarEnabled(false);
+
+                    List<Map<String, Object>> PersonList = new ArrayList<Map<String, Object>>();
+
+                    String[] names = {"刘德华", "张学友", "黎明", "郭富城", "黄继光"};
+                    String[] phones = {"15810809554", "13825633652", "13965254124", "13644525425", "1396535652"};
+                    Integer[] photoes = {R.mipmap.andy1, R.mipmap.andy2, R.mipmap.andy3, R.mipmap.andy4, R.mipmap.andy5};
+
+                    for(int i = 0; i < 20; i++) {
+                        Map<String, Object> item1 = new HashMap<String, Object>();
+                        item1.put("nickname", names[i%names.length]);
+                        item1.put("photo", photoes[i%names.length]);
+                        item1.put("phone", phones[i%names.length]);
+                        PersonList.add(item1);
+                    }
+
+
+                    if(PersonList.size() == 0){
+                        ContactNo.setVisibility(View.VISIBLE);
+                        ContactList.setVisibility(View.INVISIBLE);
+                        VisitBt.setOnClickListener(this);
+                    }else{
+                        ContactNo.setVisibility(View.INVISIBLE);
+                        ContactList.setVisibility(View.VISIBLE);
+                        ContactListAdapter adapter = new ContactListAdapter(mContext.getActivity(), PersonList);
+                        ContactListView.setAdapter(adapter);
+                    }
+
                     break;
                 }
                 case 3:{
