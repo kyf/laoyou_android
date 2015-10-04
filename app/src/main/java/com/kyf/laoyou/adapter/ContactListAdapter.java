@@ -1,6 +1,8 @@
 package com.kyf.laoyou.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by kyf on 2015/10/1.
  */
-public class ContactListAdapter extends BaseAdapter {
+public class ContactListAdapter extends BaseAdapter implements View.OnClickListener {
 
     private static final String LogTag = "ContactListAdapter";
 
@@ -53,6 +55,7 @@ public class ContactListAdapter extends BaseAdapter {
         View result;
         TextView contactlist_nickname, contactlist_phone;
         CircleImageView contactlist_photo;
+        ImageView call_phone_bt;
         ContactHolder contactHolder;
 
         if(convertView != null){
@@ -61,6 +64,7 @@ public class ContactListAdapter extends BaseAdapter {
             contactlist_phone = contactHolder.contactlist_phone;
             contactlist_nickname = contactHolder.contactlist_nickname;
             contactlist_photo = contactHolder.contactlist_photo;
+            call_phone_bt = contactHolder.call_phone_bt;
         }else{
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             result = inflater.inflate(R.layout.contactlist, null);
@@ -68,9 +72,11 @@ public class ContactListAdapter extends BaseAdapter {
             contactlist_nickname = (TextView) result.findViewById(R.id.contactlist_nickname);
             contactlist_phone = (TextView) result.findViewById(R.id.contactlist_phone);
             contactlist_photo = (CircleImageView) result.findViewById(R.id.contactlist_photo);
+            call_phone_bt = (ImageView) result.findViewById(R.id.call_phone_bt);
             contactHolder.contactlist_nickname = contactlist_nickname;
             contactHolder.contactlist_phone = contactlist_phone;
             contactHolder.contactlist_photo = contactlist_photo;
+            contactHolder.call_phone_bt = call_phone_bt;
             result.setTag(contactHolder);
         }
 
@@ -81,7 +87,22 @@ public class ContactListAdapter extends BaseAdapter {
         contactlist_nickname.setText(nickname);
         contactlist_photo.setImageResource(photo_res);
         contactlist_phone.setText(phone);
+        call_phone_bt.setTag(phone);
+        call_phone_bt.setOnClickListener(this);
         return result;
+    }
+
+    @Override
+    public void onClick(View view){
+        int id = view.getId();
+        switch(id){
+            case R.id.call_phone_bt:{
+                String phoneno = view.getTag().toString();
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneno));
+                mContext.startActivity(intent);
+                break;
+            }
+        }
     }
 
 
@@ -90,5 +111,7 @@ public class ContactListAdapter extends BaseAdapter {
         public TextView contactlist_nickname, contactlist_phone;
 
         private CircleImageView contactlist_photo;
+
+        private ImageView call_phone_bt;
     }
 }

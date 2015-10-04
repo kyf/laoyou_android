@@ -3,6 +3,7 @@
     package="com.kyf.laoyou" >
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".MyApplication"
@@ -52,6 +53,10 @@
         <activity
             android:name=".QRCodeActivity"
             android:label="@string/title_activity_swipe_code" >
+        </activity>
+        <activity
+            android:name=".PubActivity"
+            android:label="@string/pub_activity" >
         </activity>
     </application>
 

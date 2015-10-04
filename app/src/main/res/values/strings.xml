@@ -39,4 +39,5 @@
     <string name="read_qrcode_failure">二维码读取失败</string>
     <string name="create_qrcode">生成二维码...</string>
 
+    <string name="pub_activity">发起活动</string>
 </resources>

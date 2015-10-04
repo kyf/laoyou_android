@@ -26,12 +26,6 @@ public class TouchPwdActivity extends BaseActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         initView();
-        /*
-        MyLoading dialog = new MyLoading(this);
-        dialog.setCanceledOnTouchOutside(false);
-        //dialog.setContent("正在加载...");
-        dialog.show();
-        */
     }
 
     @Override

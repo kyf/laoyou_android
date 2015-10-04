@@ -135,6 +135,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.menu_visit_bt:{
                 Intent intent = new Intent(this, VisitActivity.class);
                 startActivity(intent);
+                pw.dismiss();
+                break;
+            }
+            case R.id.menu_pub_activity_bt:{
+                Intent intent = new Intent(this, PubActivity.class);
+                startActivity(intent);
+                pw.dismiss();
                 break;
             }
             case R.id.home_code_more_bt:{
@@ -144,8 +151,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     pw = new PopupWindow(menu_home, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
                     pw.setBackgroundDrawable(new BitmapDrawable());
                     pw.showAsDropDown(view);
-                    TextView menu_visit_bt = (TextView) menu_home.findViewById(R.id.menu_visit_bt);
+                    LinearLayout menu_visit_bt = (LinearLayout) menu_home.findViewById(R.id.menu_visit_bt);
+                    LinearLayout menu_pub_activity_bt = (LinearLayout) menu_home.findViewById(R.id.menu_pub_activity_bt);
                     menu_visit_bt.setOnClickListener(this);
+                    menu_pub_activity_bt.setOnClickListener(this);
                 }else{
                     if(pw.isShowing()){
                         pw.dismiss();
@@ -382,7 +391,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     List<Map<String, Object>> PersonList = new ArrayList<Map<String, Object>>();
 
                     String[] names = {"刘德华", "张学友", "黎明", "郭富城", "黄继光"};
-                    String[] phones = {"15810809554", "13825633652", "13965254124", "13644525425", "1396535652"};
+                    String[] phones = {"15810809554", "18827172102", "13965254124", "13644525425", "1396535652"};
                     Integer[] photoes = {R.mipmap.andy1, R.mipmap.andy2, R.mipmap.andy3, R.mipmap.andy4, R.mipmap.andy5};
 
                     for(int i = 0; i < 20; i++) {

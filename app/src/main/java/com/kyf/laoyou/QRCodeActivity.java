@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -73,4 +74,17 @@ public class QRCodeActivity extends BaseActivity implements Runnable {
         myHandler.sendMessage(msg);
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home: {
+                finish();
+                return true;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

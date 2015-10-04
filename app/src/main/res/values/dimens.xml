@@ -3,6 +3,9 @@
     <dimen name="activity_horizontal_margin">20dp</dimen>
     <dimen name="activity_vertical_margin">20dp</dimen>
 
+    <dimen name="tiny_activity_horizontal_margin">10dp</dimen>
+    <dimen name="tiny_activity_vertical_margin">10dp</dimen>
+
     <dimen name="guide_activity_horizontal_margin">0dp</dimen>
     <dimen name="guide_activity_vertical_margin">0dp</dimen>
 
@@ -18,12 +21,14 @@
     <dimen name="chat_photo_height">45dp</dimen>
 
     <dimen name="chat_fragment_margin_horizontal">10dp</dimen>
-
+    <dimen name="chat_line_space_extra">6dp</dimen>
+    <dimen name="chat_text_size">16sp</dimen>
     <dimen name="chat_item_margin_top">5dp</dimen>
 
     <dimen name="menu_text_size">17sp</dimen>
 
-    <dimen name="menu_padding">25dp</dimen>
+    <dimen name="menu_padding_left">25dp</dimen>
+    <dimen name="menu_padding_right">50dp</dimen>
 
     <dimen name="qrwindow_width">250dp</dimen>
     <dimen name="qrwindow_height">300dp</dimen>
@@ -33,4 +38,5 @@
     <dimen name="contact_item_margin_left">15dp</dimen>
     <dimen name="contact_item_name_size">18sp</dimen>
     <dimen name="contact_item_phone_size">14sp</dimen>
+    <dimen name="menu_offset_x">10dp</dimen>
 </resources>

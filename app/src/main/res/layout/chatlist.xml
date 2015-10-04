@@ -24,6 +24,8 @@
         android:layout_height="wrap_content"
         android:background="@mipmap/left"
         android:id="@+id/msgText"
+        android:textSize="@dimen/chat_text_size"
+        android:lineSpacingExtra="@dimen/chat_line_space_extra"
         />
 
     </LinearLayout>
