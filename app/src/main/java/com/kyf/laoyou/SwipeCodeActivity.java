@@ -9,8 +9,9 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.github.yoojia.zxing.FinderView;
-import com.github.yoojia.zxing.QRCodeScanSupport;
+import com.kyf.laoyou.util.QRCodeScanSupport;
+import com.kyf.laoyou.view.FinderView;
+
 
 public class SwipeCodeActivity extends BaseActivity implements QRCodeScanSupport.OnScanResultListener {
 
