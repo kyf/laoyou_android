@@ -31,7 +31,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="@dimen/devide_line"
             android:background="@color/gray" />
 
         <LinearLayout

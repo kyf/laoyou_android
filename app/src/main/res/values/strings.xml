@@ -40,4 +40,8 @@
     <string name="create_qrcode">生成二维码...</string>
 
     <string name="pub_activity">发起活动</string>
+    <string name="title_activity_person">PersonActivity</string>
+
+    <string name="loading_boot_qq">启动QQ...</string>
+    <string name="loading_boot_wx">启动微信...</string>
 </resources>

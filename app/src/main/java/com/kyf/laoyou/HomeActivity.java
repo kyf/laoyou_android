@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -234,31 +235,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -267,9 +252,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-
             PlaceholderFragment placeholderFragment =  PlaceholderFragment.newInstance(position + 1);
             return placeholderFragment;
         }
@@ -297,7 +279,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment implements View.OnClickListener {
+    public static class PlaceholderFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+
+        private final String[] names = {"刘德华", "张学友", "黎明", "郭富城", "黄继光"};
+        private final String[] phones = {"15810809554", "18827172102", "13965254124", "13644525425", "1396535652"};
+        private final String[] weixins = {"kyf10086", "wx123456", "wx7845454", "wx545451", "wx9632574"};
+        private final String[] qqs = {"119007114", "124253", "781217565", "2665415454", "215864315454"};
+        private final Integer[] photoes = {R.mipmap.andy1, R.mipmap.andy2, R.mipmap.andy3, R.mipmap.andy4, R.mipmap.andy5};
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -352,6 +341,23 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             }
         }
 
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+            int photo = photoes[position % photoes.length];
+            String phone = phones[position % phones.length];
+            String nickname = names[position % names.length];
+            String weixin = weixins[position % weixins.length];
+            String qq = qqs[position % qqs.length];
+            Intent intent = new Intent(this.getActivity(), PersonActivity.class);
+            intent.putExtra("phone", phone);
+            intent.putExtra("photo", photo);
+            intent.putExtra("weixin", weixin);
+            intent.putExtra("qq", qq);
+            intent.putExtra("nickname", nickname);
+            startActivity(intent);
+        }
+
         private void bindViewEvent(View rootView, int position){
             switch(position){
                 case 1:{
@@ -390,10 +396,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
                     List<Map<String, Object>> PersonList = new ArrayList<Map<String, Object>>();
 
-                    String[] names = {"刘德华", "张学友", "黎明", "郭富城", "黄继光"};
-                    String[] phones = {"15810809554", "18827172102", "13965254124", "13644525425", "1396535652"};
-                    Integer[] photoes = {R.mipmap.andy1, R.mipmap.andy2, R.mipmap.andy3, R.mipmap.andy4, R.mipmap.andy5};
-
                     for(int i = 0; i < 20; i++) {
                         Map<String, Object> item1 = new HashMap<String, Object>();
                         item1.put("nickname", names[i%names.length]);
@@ -412,6 +414,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         ContactList.setVisibility(View.VISIBLE);
                         ContactListAdapter adapter = new ContactListAdapter(mContext.getActivity(), PersonList);
                         ContactListView.setAdapter(adapter);
+                        ContactListView.setOnItemClickListener(mContext);
                     }
 
                     break;
