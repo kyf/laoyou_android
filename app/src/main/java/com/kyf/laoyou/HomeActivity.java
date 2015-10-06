@@ -1,6 +1,7 @@
 package com.kyf.laoyou;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +37,9 @@ import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.kyf.laoyou.adapter.ChatlistAdapter;
 import com.kyf.laoyou.adapter.ContactListAdapter;
+import com.kyf.laoyou.util.CharacterParser;
+import com.kyf.laoyou.util.PinyinComparator;
+import com.kyf.laoyou.view.IndexableListView;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener, OnItemClickListener {
 
@@ -287,6 +291,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         private final String[] qqs = {"119007114", "124253", "781217565", "2665415454", "215864315454"};
         private final Integer[] photoes = {R.mipmap.andy1, R.mipmap.andy2, R.mipmap.andy3, R.mipmap.andy4, R.mipmap.andy5};
 
+        private List<Map<String, Object>> PersonList;
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -344,11 +350,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-            int photo = photoes[position % photoes.length];
-            String phone = phones[position % phones.length];
-            String nickname = names[position % names.length];
-            String weixin = weixins[position % weixins.length];
-            String qq = qqs[position % qqs.length];
+            Map<String, Object> it = PersonList.get(position);
+            int photo = (int) it.get("photo");
+            String phone = it.get("phone").toString();
+            String nickname = it.get("nickname").toString();
+            String weixin = it.get("weixin").toString();
+            String qq = it.get("qq").toString();
             Intent intent = new Intent(this.getActivity(), PersonActivity.class);
             intent.putExtra("phone", phone);
             intent.putExtra("photo", photo);
@@ -389,21 +396,38 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 case 2:{
                     LinearLayout ContactList = (LinearLayout) rootView.findViewById(R.id.ContactList);
                     LinearLayout ContactNo = (LinearLayout) rootView.findViewById(R.id.ContactNo);
-                    ListView ContactListView = (ListView) rootView.findViewById(R.id.ContactListView);
+                    IndexableListView ContactListView = (IndexableListView) rootView.findViewById(R.id.ContactListView);
                     Button VisitBt = (Button) rootView.findViewById(R.id.VisitBt);
 
                     ContactListView.setVerticalScrollBarEnabled(false);
+                    ContactListView.setFastScrollEnabled(true);
 
-                    List<Map<String, Object>> PersonList = new ArrayList<Map<String, Object>>();
+                    PersonList = new ArrayList<Map<String, Object>>();
 
+                    CharacterParser characterParser = CharacterParser.getInstance();
                     for(int i = 0; i < 20; i++) {
                         Map<String, Object> item1 = new HashMap<String, Object>();
-                        item1.put("nickname", names[i%names.length]);
+                        String nickname = names[i%names.length];
+                        item1.put("nickname", nickname);
                         item1.put("photo", photoes[i%names.length]);
                         item1.put("phone", phones[i%names.length]);
+                        item1.put("weixin", weixins[i%names.length]);
+                        item1.put("qq", qqs[i%names.length]);
+
+                        String pinyin = characterParser.getSelling(nickname);
+                        String sortString = pinyin.substring(0, 1).toUpperCase();
+
+                        if(sortString.matches("[A-Z]")){
+                            item1.put("letter", sortString.toUpperCase());
+                        }else{
+                            item1.put("letter", "#");
+                        }
+
                         PersonList.add(item1);
                     }
 
+
+                    Collections.sort(PersonList, new PinyinComparator());
 
                     if(PersonList.size() == 0){
                         ContactNo.setVisibility(View.VISIBLE);

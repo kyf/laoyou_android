@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/tiny_activity_horizontal_margin"
-    android:paddingRight="@dimen/tiny_activity_horizontal_margin"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/guide_activity_horizontal_margin"
+    android:paddingRight="@dimen/guide_activity_horizontal_margin"
     android:paddingTop="@dimen/guide_activity_vertical_margin"
     android:paddingBottom="@dimen/guide_activity_vertical_margin"
     tools:context="com.kyf.laoyou.HomeActivity$PlaceholderFragment">
@@ -14,12 +14,12 @@
         android:id="@+id/ContactList"
         android:visibility="gone"
         >
-        <ListView
+        <com.kyf.laoyou.view.IndexableListView
             android:id="@+id/ContactListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </ListView>
+        </com.kyf.laoyou.view.IndexableListView>
     </LinearLayout>
 
 
@@ -42,6 +42,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="@dimen/tiny_activity_horizontal_margin"
+        android:paddingRight="@dimen/tiny_activity_horizontal_margin"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:id="@+id/ContactNo"

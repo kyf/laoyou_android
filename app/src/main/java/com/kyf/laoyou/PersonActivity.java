@@ -78,6 +78,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 intent.addCategory(Intent.CATEGORY_LAUNCHER);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setComponent(cmp);
+                startActivityForResult(intent, 0);
                 break;
             }
             case R.id.qq_view:{

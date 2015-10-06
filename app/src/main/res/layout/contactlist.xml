@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/contact_index_tag_height"
+        android:paddingLeft="@dimen/tiny_activity_horizontal_margin"
+        android:id="@+id/contactlist_letter"
+        android:text="A"
+        android:textSize="@dimen/contact_index_tag_size"
+        android:gravity="top"
+        android:background="@color/navpage"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="@dimen/tiny_activity_horizontal_margin"
+        android:paddingRight="@dimen/tiny_activity_horizontal_margin"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/contact_item_margin_top"
         android:layout_marginBottom="@dimen/contact_item_margin_bottom"

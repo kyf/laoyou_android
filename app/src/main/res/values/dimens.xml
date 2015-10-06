@@ -38,6 +38,9 @@
     <dimen name="contact_item_margin_left">15dp</dimen>
     <dimen name="contact_item_name_size">18sp</dimen>
     <dimen name="contact_item_phone_size">14sp</dimen>
+    <dimen name="contact_index_tag_height">22dp</dimen>
+    <dimen name="contact_index_tag_size">16sp</dimen>
+
     <dimen name="menu_offset_x">10dp</dimen>
 
     <dimen name="devide_line">1dp</dimen>
