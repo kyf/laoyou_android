@@ -44,4 +44,12 @@
 
     <string name="loading_boot_qq">启动QQ...</string>
     <string name="loading_boot_wx">启动微信...</string>
+
+    <string name="activity_share_button">分享</string>
+    <string name="activity_join_button">参加</string>
+    <string name="activity_join_text_left">已有</string>
+    <string name="activity_join_text_right">人参加</string>
+    <string name="activity_pub_text">发起人：</string>
+    <string name="activity_pay_text">费用：</string>
+    <string name="title_activity_">活动内页</string>
 </resources>

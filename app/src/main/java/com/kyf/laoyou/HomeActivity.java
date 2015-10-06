@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
+import com.kyf.laoyou.adapter.ActivitylistAdapter;
 import com.kyf.laoyou.adapter.ChatlistAdapter;
 import com.kyf.laoyou.adapter.ContactListAdapter;
 import com.kyf.laoyou.util.CharacterParser;
@@ -293,6 +294,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         private List<Map<String, Object>> PersonList;
 
+        private List<Map<String, Object>> ActivityList;
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -324,9 +327,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             Bundle args = getArguments();
             int layout = R.layout.fragment_home;
             switch(args.getInt(ARG_SECTION_NUMBER)){
-                case 2:
+                case 2: {
                     layout = R.layout.fragment_home_contact;
                     break;
+                }case 3:{
+                    layout = R.layout.fragment_home_activity;
+                    break;
+                }case 4:{
+                    layout = R.layout.fragment_home_me;
+                    break;
+                }
                 default:
             }
 
@@ -350,19 +360,32 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-            Map<String, Object> it = PersonList.get(position);
-            int photo = (int) it.get("photo");
-            String phone = it.get("phone").toString();
-            String nickname = it.get("nickname").toString();
-            String weixin = it.get("weixin").toString();
-            String qq = it.get("qq").toString();
-            Intent intent = new Intent(this.getActivity(), PersonActivity.class);
-            intent.putExtra("phone", phone);
-            intent.putExtra("photo", photo);
-            intent.putExtra("weixin", weixin);
-            intent.putExtra("qq", qq);
-            intent.putExtra("nickname", nickname);
-            startActivity(intent);
+            int _id = parent.getId();
+            switch(_id){
+                case R.id.activitlist:{
+                    Intent intent = new Intent(this.getActivity(), ActivityActivity.class);
+                    Map<String, Object> it = ActivityList.get(position);
+                    intent.putExtra("id", position + 1);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.ContactListView:{
+                    Map<String, Object> it = PersonList.get(position);
+                    int photo = (int) it.get("photo");
+                    String phone = it.get("phone").toString();
+                    String nickname = it.get("nickname").toString();
+                    String weixin = it.get("weixin").toString();
+                    String qq = it.get("qq").toString();
+                    Intent intent = new Intent(this.getActivity(), PersonActivity.class);
+                    intent.putExtra("phone", phone);
+                    intent.putExtra("photo", photo);
+                    intent.putExtra("weixin", weixin);
+                    intent.putExtra("qq", qq);
+                    intent.putExtra("nickname", nickname);
+                    startActivity(intent);
+                    break;
+                }
+            }
         }
 
         private void bindViewEvent(View rootView, int position){
@@ -372,21 +395,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     List<Map<String, String>> ds = new ArrayList<Map<String, String>>();
                     chatlist.setVerticalScrollBarEnabled(false);
 
-                    Map<String, String> msg1 = new HashMap<String, String>();
-                    msg1.put("message", mContext.getActivity().getResources().getString(R.string.message_welcome));
-                    ds.add(msg1);
-
-                    Map<String, String> msg2 = new HashMap<String, String>();
-                    msg2.put("message", mContext.getActivity().getResources().getString(R.string.message_boss_complete_info));
-                    ds.add(msg2);
-
-                    Map<String, String> msg3 = new HashMap<String, String>();
-                    msg3.put("message", mContext.getActivity().getResources().getString(R.string.message_welcome));
-                    ds.add(msg3);
-
-                    Map<String, String> msg4 = new HashMap<String, String>();
-                    msg4.put("message", mContext.getActivity().getResources().getString(R.string.message_boss_complete_info));
-                    ds.add(msg4);
+                    for(int i = 0; i < 20; i++) {
+                        Map<String, String> msg1 = new HashMap<String, String>();
+                        msg1.put("message", mContext.getActivity().getResources().getString(R.string.message_welcome));
+                        ds.add(msg1);
+                    }
 
                     ChatlistAdapter chatlistAdapter = new ChatlistAdapter(mContext.getActivity(), ds);
                     chatlist.setAdapter(chatlistAdapter);
@@ -444,7 +457,27 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     break;
                 }
                 case 3:{
+                    ListView activitlist = (ListView) rootView.findViewById(R.id.activitlist);
+                    ActivityList = new ArrayList<Map<String, Object>>();
+                    activitlist.setVerticalScrollBarEnabled(false);
+                    activitlist.setOnItemClickListener(this);
 
+                    for(int i = 0; i < 20; i++) {
+                        Map<String, Object> msg = new HashMap<String, Object>();
+                        msg.put("title", i + "晚上去烽哥家喝酒吃烧烤，吃完去打完将，玩通宵");
+                        msg.put("photo", photoes[i % photoes.length]);
+                        msg.put("creater", "柯永烽");
+                        msg.put("pay", "AA制");
+                        msg.put("addr", "朝阳区南沙滩6号楼");
+                        msg.put("date", "2015-10-06(周四)");
+                        msg.put("note", "其他备注");
+                        msg.put("number", 56 + i + "");
+                        ActivityList.add(msg);
+                    }
+
+                    ActivitylistAdapter activitylistAdapter = new ActivitylistAdapter(mContext.getActivity(), ActivityList);
+                    activitlist.setAdapter(activitylistAdapter);
+                    activitlist.setDividerHeight(0);
                     break;
                 }
                 case 4:{
