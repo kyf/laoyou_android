@@ -7,8 +7,6 @@ import android.view.MenuItem;
 
 public class ActivityActivity extends BaseActivity {
 
-    private String title = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mLayout = R.layout.activity_activity;
@@ -19,19 +17,16 @@ public class ActivityActivity extends BaseActivity {
 
         Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
-        if(id != 0){
-            title = "晚上去我家里喝酒，吃烧烤，吃完打麻将，玩通宵！！！";
-        }
 
-        setTitle(title);
+        setTitle(R.string.goback);
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch(id){
-            case android.R.id.home:{
+        switch (id) {
+            case android.R.id.home: {
                 finish();
                 break;
             }

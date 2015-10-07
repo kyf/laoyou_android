@@ -52,4 +52,7 @@
     <string name="activity_pub_text">发起人：</string>
     <string name="activity_pay_text">费用：</string>
     <string name="title_activity_">活动内页</string>
+
+
+    <string name="goback">返回</string>
 </resources>
