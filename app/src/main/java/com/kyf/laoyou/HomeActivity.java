@@ -54,11 +54,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     ViewPager mViewPager;
 
-    private ImageView tab_playground_img, tab_contact_img, tab_activity_img, tab_me_img;
+    private ImageView tab_playground_img, tab_contact_img, tab_activity_img, tab_me_img, tab_chat_img;
 
-    private TextView tab_playground_text, tab_contact_text, tab_activity_text, tab_me_text;
+    private TextView tab_playground_text, tab_contact_text, tab_activity_text, tab_me_text, tab_chat_text;
 
-    private LinearLayout tab_playground, tab_contact, tab_activity, tab_me;
+    private LinearLayout tab_playground, tab_contact, tab_activity, tab_me, tab_chat;
 
     private List<Map<String, Integer>> tabControls;
 
@@ -102,21 +102,25 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         tab_contact_img = (ImageView) findViewById(R.id.tab_contact_img);
         tab_activity_img = (ImageView) findViewById(R.id.tab_activity_img);
         tab_me_img = (ImageView) findViewById(R.id.tab_me_img);
+        tab_chat_img = (ImageView) findViewById(R.id.tab_chat_img);
 
         tab_playground_text = (TextView) findViewById(R.id.tab_playground_text);
         tab_contact_text = (TextView) findViewById(R.id.tab_contact_text);
         tab_activity_text = (TextView) findViewById(R.id.tab_activity_text);
         tab_me_text = (TextView) findViewById(R.id.tab_me_text);
+        tab_chat_text = (TextView) findViewById(R.id.tab_chat_text);
 
         tab_playground = (LinearLayout) findViewById(R.id.tab_playground);
         tab_contact = (LinearLayout) findViewById(R.id.tab_contact);
         tab_activity = (LinearLayout) findViewById(R.id.tab_activity);
         tab_me = (LinearLayout) findViewById(R.id.tab_me);
+        tab_chat = (LinearLayout) findViewById(R.id.tab_chat);
 
         tab_playground.setOnClickListener(this);
         tab_contact.setOnClickListener(this);
         tab_activity.setOnClickListener(this);
         tab_me.setOnClickListener(this);
+        tab_chat.setOnClickListener(this);
 
         initTabControls();
 
@@ -178,13 +182,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 mViewPager.setCurrentItem(1, true);
                 changeTab(1);
                 break;
-            case R.id.tab_activity:
+            case R.id.tab_chat:
                 mViewPager.setCurrentItem(2, true);
                 changeTab(2);
                 break;
-            case R.id.tab_me:
+            case R.id.tab_activity:
                 mViewPager.setCurrentItem(3, true);
                 changeTab(3);
+                break;
+            case R.id.tab_me:
+                mViewPager.setCurrentItem(4, true);
+                changeTab(4);
                 break;
         }
     }
@@ -206,18 +214,26 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         tabControls.add(control2);
 
         Map<String, Integer> control3 = new HashMap<String, Integer>();
-        control3.put("img", R.id.tab_activity_img);
-        control3.put("text", R.id.tab_activity_text);
-        control3.put("src", R.mipmap.activity);
-        control3.put("src1", R.mipmap.activity_1);
+        control3.put("img", R.id.tab_chat_img);
+        control3.put("text", R.id.tab_chat_text);
+        control3.put("src", R.mipmap.chat);
+        control3.put("src1", R.mipmap.chat_1);
         tabControls.add(control3);
 
         Map<String, Integer> control4 = new HashMap<String, Integer>();
-        control4.put("img", R.id.tab_me_img);
-        control4.put("text", R.id.tab_me_text);
-        control4.put("src", R.mipmap.me);
-        control4.put("src1", R.mipmap.me_1);
+        control4.put("img", R.id.tab_activity_img);
+        control4.put("text", R.id.tab_activity_text);
+        control4.put("src", R.mipmap.activity);
+        control4.put("src1", R.mipmap.activity_1);
         tabControls.add(control4);
+
+        Map<String, Integer> control5 = new HashMap<String, Integer>();
+        control5.put("img", R.id.tab_me_img);
+        control5.put("text", R.id.tab_me_text);
+        control5.put("src", R.mipmap.me);
+        control5.put("src1", R.mipmap.me_1);
+        tabControls.add(control5);
+
     }
 
     private void changeTab(int position){
@@ -263,7 +279,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
 
         @Override
@@ -331,9 +347,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     layout = R.layout.fragment_home_contact;
                     break;
                 }case 3:{
-                    layout = R.layout.fragment_home_activity;
+                    layout = R.layout.fragment_home_chat;
                     break;
                 }case 4:{
+                    layout = R.layout.fragment_home_activity;
+                    break;
+                }case 5:{
                     layout = R.layout.fragment_home_me;
                     break;
                 }
@@ -390,22 +409,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         private void bindViewEvent(View rootView, int position){
             switch(position){
-                case 1:{
-                    ListView chatlist = (ListView) rootView.findViewById(R.id.chatlist);
-                    List<Map<String, String>> ds = new ArrayList<Map<String, String>>();
-                    chatlist.setVerticalScrollBarEnabled(false);
-
-                    for(int i = 0; i < 20; i++) {
-                        Map<String, String> msg1 = new HashMap<String, String>();
-                        msg1.put("message", mContext.getActivity().getResources().getString(R.string.message_welcome));
-                        ds.add(msg1);
-                    }
-
-                    ChatlistAdapter chatlistAdapter = new ChatlistAdapter(mContext.getActivity(), ds);
-                    chatlist.setAdapter(chatlistAdapter);
-                    chatlist.setDividerHeight(0);
-                    break;
-                }
                 case 2:{
                     LinearLayout ContactList = (LinearLayout) rootView.findViewById(R.id.ContactList);
                     LinearLayout ContactNo = (LinearLayout) rootView.findViewById(R.id.ContactNo);
@@ -457,6 +460,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     break;
                 }
                 case 3:{
+                    ListView chatlist = (ListView) rootView.findViewById(R.id.chatlist);
+                    List<Map<String, String>> ds = new ArrayList<Map<String, String>>();
+                    chatlist.setVerticalScrollBarEnabled(false);
+
+                    for(int i = 0; i < 20; i++) {
+                        Map<String, String> msg1 = new HashMap<String, String>();
+                        msg1.put("message", mContext.getActivity().getResources().getString(R.string.message_welcome));
+                        ds.add(msg1);
+                    }
+
+                    ChatlistAdapter chatlistAdapter = new ChatlistAdapter(mContext.getActivity(), ds);
+                    chatlist.setAdapter(chatlistAdapter);
+                    chatlist.setDividerHeight(0);
+                    break;
+                }
+                case 4:{
                     ListView activitlist = (ListView) rootView.findViewById(R.id.activitlist);
                     ActivityList = new ArrayList<Map<String, Object>>();
                     activitlist.setVerticalScrollBarEnabled(false);
@@ -480,7 +499,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     activitlist.setDividerHeight(0);
                     break;
                 }
-                case 4:{
+                case 5:{
 
                     break;
                 }

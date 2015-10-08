@@ -16,6 +16,7 @@
     <string name="title_activity_home">栗木小学1997届同学群</string>
     <string name="tab_home_playground">广场</string>
     <string name="tab_home_contact">通讯录</string>
+    <string name="tab_home_chat">聊天</string>
     <string name="tab_home_activity">活动</string>
     <string name="tab_home_me">我</string>
 
